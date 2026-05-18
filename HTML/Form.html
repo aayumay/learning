@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><b>Complete HTML Form</b></h1>
+    <form action="/submit" method="post">
+        <fieldset>
+        <div>
+            <h2>Text Inputs</h2>
+            <label for="fullname">Full Name:</label>
+            <input type="text" placeholder="=Enter ur name" required>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" name="email" placeholder="example@gmail.com" required>
+            <br>
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Enter password">
+            <br>
+            <label for="search">Search:</label>
+            <input type="search" name="search" placeholder="Search here">
+            <br>
+            <label for="phone">Phone:</label>
+            <input type="tel" name="phone" placeholder="9874#####">
+            <br>
+            <label for="website">Website:</label>
+            <input type="url" name="website" placeholder="https://example.com">
+        
+        </div>
+        </fieldset>
+        <br>
+        <fieldset>
+        <div>
+        <h2>Number Inputs</h2>
+        <label for="age">Age:</label>
+        <input type="number"  name="age" value="20" min="1" max="120">
+        <br>
+        <label for="volume">Volume:</label>
+        <input type="range"  name="volume" min="0" max="100">
+        </div>
+        </fieldset>
+        <br>
+        <fieldset>
+        <div>
+        <h2>Date & Time Inputs</h2>
+        <label for="date">Date:</label>
+        <input type="date" name="date">
+        <br>
+        <label for="time">Time:</label>
+        <input type="time" name="time">
+        <br>
+        <input type="datetime-local" name="datetime">
+        <br>
+        <label for="datetime">Date & Time:</label>
+    
+        <label for="month">Month:</label>
+        <input type="month" name="month">
+        </div>
+        </fieldset>
+        <br>
+        <br>
+         <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
