@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GhostPrint AI | Operational Impact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        /* 16:9 Presentation Slide Container */
+        .slide-frame {
+            width: 1280px;
+            height: 720px;
+            background: radial-gradient(circle at 50% 0%, #111827 0%, #030712 100%);
+            position: relative;
+            border: 1px solid #1f2937;
+            display: flex;
+            flex-direction: column;
+            padding: 50px 60px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        /* Grid Background Overlay */
+        .slide-frame::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Header */
+        .header {
+            position: relative;
+            z-index: 10;
+            border-bottom: 2px solid #1f2937;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #f3f4f6;
+            text-transform: uppercase;
+        }
+
+        .header-badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pulse-dot {
+            width: 8px; height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Main Content Split */
+        .content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            gap: 50px;
+            height: 100%;
+        }
+
+        /* Left Side: ICU Graph */
+        .graph-container {
+            flex: 1.5;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            position: relative;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+
+        .graph-title {
+            color: #9ca3af;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .svg-area {
+            flex: 1;
+            width: 100%;
+            position: relative;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* Labels inside graph */
+        .label-coal {
+            position: absolute;
+            top: 25px; left: 10px;
+            color: #ef4444;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            text-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+        }
+
+        .label-ghost {
+            position: absolute;
+            bottom: 60px; right: 20px;
+            color: #10b981;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+        }
+
+        /* Right Side: Massive Metrics */
+        .metrics-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .glow-circle {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+            top: 50%; right: 10%;
+            transform: translateY(-50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .massive-number {
+            font-size: 120px;
+            font-weight: 900;
+            color: #10b981;
+            line-height: 1;
+            text-shadow: 0 0 40px rgba(16, 185, 129, 0.6), 0 0 10px rgba(16, 185, 129, 0.4);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .metric-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f3f4f6;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .metric-desc {
+            font-size: 18px;
+            color: #9ca3af;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .formula-box {
+            background: rgba(31, 41, 55, 0.5);
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #d1d5db;
+            position: relative;
+            z-index: 10;
+        }
+
+        .formula-box span {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="slide-frame">
+        <div class="glow-circle"></div>
+        
+        <div class="header">
+            <h1>Operational Impact</h1>
+            <div class="header-badge">
+                <div class="pulse-dot"></div>
+                SYSTEM OBSERVATORY ACTIVE
+            </div>
+        </div>
+
+        <div class="content">
+            
+            <div class="graph-container">
+                <div class="graph-title">Live Node Telemetry (gCO₂/kWh)</div>
+                <div class="svg-area">
+                    <div class="label-coal">Baseline (Coal Grid) --- 710g</div>
+                    <div class="label-ghost">GhostPrint Routing ➔ 35g</div>
+                    
+                    <svg viewBox="0 0 600 300" preserveAspectRatio="none">
+                        <defs>
+                            <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="8" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                            <filter id="glowRed" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="3" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                        </defs>
+
+                        <line x1="0" y1="50" x2="600" y2="50" stroke="#1f2937" stroke-width="1" stroke-dasharray="4" />
+                        <line x1="0" y1="150" x2="600" y2="150" stroke="#1f2937" stroke-width="1" stroke-dasharray="4" />
+                        <line x1="0" y1="250" x2="600" y2="250" stroke="#1f2937" stroke-width="1" stroke-dasharray="4" />
+
+                        <path d="M 0 45 L 100 48 L 200 42 L 300 46 L 400 44 L 500 49 L 600 45" 
+                              fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,5" opacity="0.7" filter="url(#glowRed)"/>
+
+                        <path d="M 0 45 L 80 48 L 120 180 L 150 260 L 220 250 L 280 270 L 350 240 L 420 265 L 480 255 L 550 270 L 600 260" 
+                              fill="none" stroke="#10b981" stroke-width="4" filter="url(#glowGreen)"/>
+                              
+                        <path d="M 0 45 L 80 48 L 120 180 L 150 260 L 220 250 L 280 270 L 350 240 L 420 265 L 480 255 L 550 270 L 600 260 L 600 300 L 0 300 Z" 
+                              fill="url(#greenGradient)" opacity="0.15"/>
+                              
+                        <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#10b981" />
+                            <stop offset="100%" stop-color="transparent" />
+                        </linearGradient>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="metrics-container">
+                <div class="massive-number">90.4%</div>
+                <div class="metric-title">Potential Emissions Reduction</div>
+                <div class="metric-desc">
+                    Achieved by dynamically shifting heavy computational payloads from high-carbon fossil grids directly to available clean energy zones.
+                </div>
+                
+                <div class="formula-box">
+                    <div>> System Calculation Standard</div>
+                    <div style="margin-top: 10px; font-size: 20px;">
+                        <span>O = E × I</span>
+                    </div>
+                    <div style="margin-top: 5px; font-size: 12px; color: #6b7280;">
+                        Operational Emissions = Energy Consumed × Grid Carbon Intensity
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

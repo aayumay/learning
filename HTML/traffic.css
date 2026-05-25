@@ -1,0 +1,60 @@
+.traffic-light {
+        width: 100px;
+        height: 250px;
+        background-color: #3a3737;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px;
+        margin: auto;
+    }
+    .light {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+    .red {
+        background-color: red;
+    }
+    
+    .yellow {
+        background-color: yellow;
+    }
+    .green {
+        background-color: green;
+    }
+    
+    .khamba{
+        width: 20px;
+        height: 250px;
+        background-color: #8B4513;
+        margin: 0 auto;
+        padding: 0px;
+
+    }
+    .road {
+        width: 100%;
+        height: 150px;
+        background-color: #000;
+        margin: auto;
+        position: relative;
+        border: 13px solid #333 ;
+    }
+    .road::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background-image: linear-gradient(90deg, white 50%, transparent 50%);
+        background-size: 40px 3px;
+    }
+    .zebra-stripe {
+        width: 30px;
+        height: 120px;
+        background-color: white;
+    }
+
