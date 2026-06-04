@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.container{
+    width:500px;
+    height:650px;
+    border:2px solid black;
+    margin:30px auto;
+    display:grid;
+    grid-template-columns:1fr 1.5fr 1fr;
+    grid-template-rows:1fr 1fr 0.7fr;
+}
+
+.box{
+    display:grid;
+    border: 1px solid black;
+}
+
+.small{
+    width:70px;
+    height:70px;
+    border:2px solid black;
+    background:rgb(227,197,232);
+}
+
+.tl .small{
+    place-self:start ;
+}
+
+.tm .small{
+    place-self:end center;
+}
+
+.tr .small{
+    place-self:start end;
+}
+
+.ml .small{
+    place-self:center start;
+}
+
+.mm .small{
+    place-self:center center;
+}
+
+
+.mr .small{
+    place-self:center end;
+}
+
+.bl .small{
+    place-self:end start;
+}
+
+.br .small{
+    place-self: end end;
+}
+.m .small{
+    place-self: start center;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="box tl">
+        <div class="small"></div>
+    </div>
+
+    <div class="box tm">
+        <div class="small"></div>
+    </div>
+
+    <div class="box tr">
+        <div class="small"></div>
+    </div>
+
+    <div class="box ml">
+        <div class="small"></div>
+    </div>
+
+    <div class="box mm">
+        <div class="small"></div>
+    </div>
+
+    <div class="box mr">
+        <div class="small"></div>
+    </div>
+
+    <div class="box bl">
+        <div class="small"></div>
+    </div>
+
+    <div class="box m">
+        <div class="small"></div>
+    </div>
+
+    <div class="box br">
+        <div class="small"></div>
+    </div>
+
+</div>
+
+</body>
+</html>

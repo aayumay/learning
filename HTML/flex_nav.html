@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    body{
+        font-family:Arial, Helvetica, sans-serif;
+        background:#f3f6f8;
+        color:#20242a;
+        padding:28px;
+    }
+
+    .navbar{
+        max-width:1100px;
+        margin:0 auto 32px;
+        background:#ffffff;
+        border:2px solid #20242a;
+        border-radius:8px;
+        padding:14px 18px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:20px;
+        box-shadow:6px 6px 0 #c7d5dd;
+    }
+
+    .brand{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        min-width:max-content;
+    }
+
+    .logo{
+        width:54px;
+        height:54px;
+        border:2px solid #20242a;
+        border-radius:50%;
+        background:linear-gradient(135deg, #f7c948 0 50%, #36b37e 50%);
+    }
+
+    .brand h1{
+        font-size:22px;
+        line-height:1;
+    }
+
+    .menu{
+        flex:1;
+        display:flex;
+        justify-content:center;
+        gap:10px;
+        list-style:none;
+    }
+
+    .menu a{
+        display:inline-block;
+        color:#20242a;
+        text-decoration:none;
+        font-weight:700;
+        padding:10px 14px;
+        border-radius:6px;
+    }
+
+    .menu a:hover{
+        background:#edf2f4;
+    }
+
+    .right-section{
+        display:flex;
+        justify-content:flex-end;
+        align-items:center;
+        gap:12px;
+        min-width:260px;
+    }
+
+    .search{
+        width:190px;
+        height:42px;
+        border:2px solid #20242a;
+        border-radius:6px;
+        padding:0 12px;
+        font-size:15px;
+    }
+
+    .profile{
+        width:46px;
+        height:46px;
+        border:2px solid #20242a;
+        border-radius:50%;
+        background:#ff8f73;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-weight:700;
+    }
+
+    .hero{
+        max-width:1100px;
+        margin:0 auto;
+        display:flex;
+        align-items:stretch;
+        gap:22px;
+    }
+
+    .hero-text{
+        flex:1.2;
+        background:#ffffff;
+        border:2px solid #20242a;
+        border-radius:8px;
+        padding:34px;
+        box-shadow:6px 6px 0 #c7d5dd;
+    }
+
+    .hero-text h2{
+        font-size:42px;
+        margin-bottom:14px;
+    }
+
+    .hero-text p{
+        font-size:18px;
+        line-height:1.6;
+        max-width:620px;
+        margin-bottom:22px;
+    }
+
+    .hero-text button{
+        background:#20242a;
+        color:#ffffff;
+        border:0;
+        border-radius:6px;
+        padding:12px 18px;
+        font-size:16px;
+        font-weight:700;
+        cursor:pointer;
+    }
+
+    .random-box{
+        flex:0.8;
+        border:2px solid #20242a;
+        border-radius:8px;
+        background:#dff5ff;
+        padding:24px;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        min-height:300px;
+        box-shadow:6px 6px 0 #96c9d8;
+    }
+
+    .random-box h3{
+        font-size:26px;
+        margin-bottom:14px;
+    }
+
+    .random-box ul{
+        list-style:none;
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .random-box li{
+        background:#ffffff;
+        border:2px solid #20242a;
+        border-radius:6px;
+        padding:12px;
+        font-weight:700;
+    }
+
+    .cards{
+        max-width:1100px;
+        margin:26px auto 0;
+        display:flex;
+        gap:18px;
+    }
+
+    .card{
+        flex:1;
+        background:#ffffff;
+        border:2px solid #20242a;
+        border-radius:8px;
+        padding:20px;
+        min-height:160px;
+        box-shadow:5px 5px 0 #d7dee2;
+    }
+
+    .card h3{
+        margin-bottom:10px;
+        font-size:22px;
+    }
+
+    .card p{
+        line-height:1.5;
+    }
+
+    @media(max-width:850px){
+        body{
+            padding:16px;
+        }
+
+        .navbar,
+        .hero,
+        .cards{
+            flex-direction:column;
+        }
+
+        .menu{
+            width:100%;
+            justify-content:flex-start;
+            flex-wrap:wrap;
+        }
+
+        .right-section{
+            width:100%;
+            min-width:0;
+            justify-content:space-between;
+        }
+
+        .search{
+            width:100%;
+        }
+
+        .hero-text h2{
+            font-size:32px;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="brand">
+            <div class="logo"></div>
+            <h1>Half</h1>
+        </div>
+
+        <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Snacks</a></li>
+            <li><a href="#">Ideas</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+
+        <div class="right-section">
+            <input type="text" class="search" placeholder="Search random stuff">
+            <div class="profile">A</div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h2>A website that is only half serious.</h2>
+                <p>
+                    
+                </p>
+                <button>Explore Ideas</button>
+            </div>
+
+            <aside class="random-box">
+                <div>
+                    <h3>Today's Random List</h3>
+                    <ul>
+                        <li>Build a robot that waters plants</li>
+                        <li>Rank street food by crunch level</li>
+                        <li>Design a chair for studying and napping</li>
+                    </ul>
+                </div>
+            </aside>
+        </section>
+
+        <section class="cards">
+            <article class="card">
+                <h3>Mini Blog</h3>
+                <p>Short thoughts about code, college, music, weather, and whatever else appears first.</p>
+            </article>
+
+            <article class="card">
+                <h3>Idea Lab</h3>
+                <p>Collect small project ideas here and turn the best ones into real HTML pages.</p>
+            </article>
+
+            <article class="card">
+                <h3>Fun Zone</h3>
+                <p>A neat space for random facts, jokes, links, and experiments with CSS layouts.</p>
+            </article>
+        </section>
+    </main>
+
+</body>
+</html>
