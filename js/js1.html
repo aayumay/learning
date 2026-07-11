@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Information</title>
+</head>
+<body>
+    <script>
+        let employee = {
+            name: "Aayush",
+            age: 30,
+            email: "aayush@example.com",
+            number: 1234567890
+        };          
+        let address = {
+            State: "Gujarat",
+            pin: "390001",
+            district: "Vadodara"
+        };    
+        let employment = {
+            company: "Tech Solutions",
+            position: "Software Engineer",
+            salary: 80000
+        };            
+        
+        employee.__proto__ = address;
+        console.log(employee.name);
+        console.log(employee.city);
+
+
+        let name = "Aayush";
+        let name2 = "Aayush";
+        console.log(name, name.charAt(2));
+        console.log(name.__proto__.charAt(0));
+    </script>
+</body>
+</html>

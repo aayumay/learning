@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class car {
+            constructor(company, model, year, tyre, features) {
+                this.company = company;
+                this.model = model;
+                this.year = year;
+                this.tyre = tyre;
+                this.features = features
+            }
+        }
+            const company = {
+                name: "BMW",
+                model: "X5",
+                year: 2022
+            }
+            const tyre = {
+                tyre1: 32,
+                tyre2: 33,
+                tyre3: 34,
+                tyre4: 44
+            }
+
+            console.log(company);
+            
+
+        // employee class
+
+        class employee {
+            constructor(name, age, email, number, cart) {
+                this.name = name;
+                this.age = age;
+                this.email = "rosh@gmail.com";
+                this.number = number;
+                this.cart = cart;
+            }
+        }
+
+        const employment = new employee("Aayush", 30, "aayu@gmail.com", 1234567890, {Fan: 500, watch: 10000, mobile: 20000});
+        
+
+        console.log(employment);
+
+        
+        
+    function greet(){
+        console.log(greet);
+    }
+        class greeet{
+            constructor(name){
+                this.name = name;
+            }
+        
+        
+            greet() {
+                console.log("Hello, welcome to the world of", this.name);
+                return "yeh return hoga ki naii?"
+            }
+        }
+
+        let GoObj = new greeet("aashi");
+        let ab = GoObj.greet();
+        console.log(ab);
+        
+        
+
+        class product {
+            constructor(name, price, quantity) {
+                this.name = name;
+                this.price = price;
+                this.quantity = quantity;
+            }
+            showdetails() {
+                console.log(`Product Name: ${this.name}, Price: ${this.price}, Quantity: ${this.quantity}`);
+            }
+        }
+
+        const product1 = new product("Laptop", 1000, 5);
+        const product2 = new product("Mouse", 550, 10);
+        product1.showdetails();
+        product2.showdetails();
+
+
+        class person {
+            constructor(age){
+                this.age = age;
+            }
+        
+
+        set age(value) {
+            if(value < 0){
+                throw new Error("Age cannot be negative");
+            }
+            this.age = value;
+        }
+    }
+
+        let person_obj = new person(-12);
+        console.log(person_obj.age);
+
+
+        
+    </script>
+</body>
+</html>

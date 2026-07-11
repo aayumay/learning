@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table using jsw</title>
+</head>
+<body>
+    <div class="div">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+
+    <script> 
+        let container = document.getElementsByClassName('div')[0];
+        let box = document.getElementsByClassName('box');
+        container.style.display = 'grid';
+        container.style.gridTemplateColumns = '150px 150px 150px';
+        container.style.gridTemplateColumns = '150px 150px 150px';
+        container.style.width = '450px';
+        container.style.height = '450px';
+        container.style.border = '1px solid black';
+
+        for(let i = 0; i<=8; i++){
+            if(i == 0 || i == 2 || i == 4 || i == 6 || i == 8){
+                box[i].style.backgroundColor = 'black';
+        }
+    }
+        console.dir(container);
+
+    </script>
+
+    
+</body>
+</html>

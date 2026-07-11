@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdminLTE 4 - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Reset & Variables */
+        :root {
+            --bg-dark: #212529;
+            --sidebar-bg: #343a40;
+            --navbar-bg: #343a40;
+            --text-main: #ffffff;
+            --text-muted: #adb5bd;
+            --border-color: #495057;
+            
+            --blue: #0d6efd;
+            --green: #198754;
+            --yellow: #ffc107;
+            --red: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 250px;
+            background-color: var(--sidebar-bg);
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .brand-logo {
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 10px 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-menu li {
+            padding: 10px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-muted);
+            transition: 0.2s;
+        }
+
+        .sidebar-menu li:hover, .sidebar-menu li.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+        }
+
+        .sidebar-menu li.active {
+            border-left: 4px solid var(--blue);
+        }
+
+        .menu-header {
+            padding: 10px 20px 5px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #6c757d;
+            font-weight: bold;
+        }
+
+        .badge {
+            margin-left: auto;
+            background: #6c757d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: #fff;
+        }
+
+        /* --- Main Content Area --- */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        /* Navbar */
+        .navbar {
+            height: 60px;
+            background-color: var(--navbar-bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: var(--text-muted);
+        }
+
+        .nav-left i, .nav-right i {
+            cursor: pointer;
+        }
+
+        .nav-left i:hover, .nav-right i:hover {
+            color: var(--text-main);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .user-profile img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        /* Content Header */
+        .content-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-header h1 {
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .breadcrumb {
+            color: var(--blue);
+            font-size: 0.9rem;
+        }
+        .breadcrumb span {
+            color: var(--text-muted);
+        }
+
+        /* Content Body */
+        .content {
+            padding: 0 20px 20px;
+        }
+
+        /* Info Boxes (Top Cards) */
+        .info-box-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            border-radius: 5px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .info-box h3 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            z-index: 2;
+        }
+
+        .info-box p {
+            font-size: 1rem;
+            z-index: 2;
+        }
+
+        .info-box .icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 4rem;
+            color: rgba(0, 0, 0, 0.15);
+            z-index: 1;
+        }
+
+        .more-info {
+            display: block;
+            text-align: center;
+            padding: 5px;
+            background: rgba(0, 0, 0, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin: 20px -20px -20px -20px;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            z-index: 2;
+            position: relative;
+        }
+        .more-info:hover {
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+
+        .bg-blue { background-color: var(--blue); }
+        .bg-green { background-color: var(--green); }
+        .bg-yellow { background-color: var(--yellow); color: #000; }
+        .bg-yellow .more-info { color: rgba(0,0,0,0.8); }
+        .bg-yellow .more-info:hover { color: #000; }
+        .bg-red { background-color: var(--red); }
+
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--sidebar-bg);
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .card-body {
+            padding: 20px;
+            height: 350px; /* Placeholder height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .card-blue {
+            background-color: var(--blue);
+            border: none;
+        }
+        
+        .card-blue .card-header {
+            border-bottom: none;
+        }
+
+        /* Mockup visual elements for charts */
+        .mock-chart-line {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(25,135,84,0.2) 0%, rgba(25,135,84,0) 100%);
+            border-top: 2px solid var(--green);
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+            position: relative;
+        }
+        
+        .mock-chart-line::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(180deg, rgba(13,110,253,0.3) 0%, rgba(13,110,253,0) 100%);
+            border-top: 2px solid var(--blue);
+            border-radius: 40% 60% 0 0 / 100% 100% 0 0;
+        }
+
+        .mock-map {
+            width: 100%;
+            height: 70%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><text x="50" y="25" fill="%23ffffff" font-size="5" text-anchor="middle" opacity="0.5">World Map Render Area</text></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="brand-logo">
+            <i class="fa-brands fa-autoprefixer"></i> AdminLTE 4
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active"><i class="fa-solid fa-gauge-high"></i> Dashboard v1</li>
+            <li><i class="fa-regular fa-circle"></i> Dashboard v2</li>
+            <li><i class="fa-regular fa-circle"></i> Dashboard v3</li>
+            <li><i class="fa-solid fa-palette"></i> Theme Generate</li>
+            <li><i class="fa-solid fa-cubes"></i> Widgets</li>
+            <li><i class="fa-solid fa-layer-group"></i> Layout Options <span class="badge">7</span></li>
+            <li><i class="fa-solid fa-tree"></i> UI Elements</li>
+            <li><i class="fa-regular fa-envelope"></i> Mailbox</li>
+            <li><i class="fa-regular fa-pen-to-square"></i> Forms</li>
+            <li><i class="fa-solid fa-table"></i> Tables</li>
+            <li class="menu-header">PAGES</li>
+            <li><i class="fa-regular fa-file"></i> Pages</li>
+            <li class="menu-header">EXAMPLES</li>
+            <li><i class="fa-solid fa-right-to-bracket"></i> Auth</li>
+        </ul>
+    </aside>
+
+    <div class="main-wrapper">
+        <nav class="navbar">
+            <div class="nav-left">
+                <i class="fa-solid fa-bars"></i>
+                <span><i class="fa-solid fa-display"></i> Live preview</span>
+                <span><i class="fa-solid fa-book"></i> Documentation</span>
+            </div>
+            <div class="nav-right">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-regular fa-comments"></i>
+                <i class="fa-regular fa-bell"></i>
+                <i class="fa-solid fa-expand"></i>
+                <i class="fa-solid fa-moon"></i>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Alexander+Pierce&background=random" alt="User">
+                    <span>Alexander Pierce</span>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content-header">
+            <h1>Dashboard</h1>
+            <div class="breadcrumb">
+                Home <span>/ Dashboard</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="info-box-grid">
+                <div class="info-box bg-blue">
+                    <h3>150</h3>
+                    <p>New Orders</p>
+                    <i class="fa-solid fa-cart-shopping icon"></i>
+                    <a href="#" class="more-info">More info <i class="fa-solid fa-circle-arrow-right"></i></a>
+                </div>
+                <div class="info-box bg-green">
+                    <h3>53<sup style="font-size: 1.2rem">%</sup></h3>
+                    <p>Bounce Rate</p>
+                    <i class="fa-solid fa-chart-simple icon"></i>
+                    <a href="#" class="more-info">More info <i class="fa-solid fa-circle-arrow-right"></i></a>
+                </div>
+                <div class="info-box bg-yellow">
+                    <h3>44</h3>
+                    <p>User Registrations</p>
+                    <i class="fa-solid fa-user-plus icon"></i>
+                    <a href="#" class="more-info">More info <i class="fa-solid fa-circle-arrow-right"></i></a>
+                </div>
+                <div class="info-box bg-red">
+                    <h3>65</h3>
+                    <p>Unique Visitors</p>
+                    <i class="fa-solid fa-chart-pie icon"></i>
+                    <a href="#" class="more-info">More info <i class="fa-solid fa-circle-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Sales Value</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mock-chart-line"></div>
+                    </div>
+                </div>
+
+                <div class="card card-blue">
+                    <div class="card-header">
+                        <div class="card-title" style="color: #fff;">Sales Value</div>
+                        <i class="fa-solid fa-minus" style="color: #fff; cursor: pointer; background: rgba(0,0,0,0.1); padding: 5px; border-radius: 3px;"></i>
+                    </div>
+                    <div class="card-body" style="flex-direction: column; justify-content: space-between;">
+                        <div class="mock-map"></div>
+                        
+                        <div style="display: flex; justify-content: space-between; width: 100%; color: white; text-align: center; margin-top: 20px;">
+                            <div>
+                                <i class="fa-solid fa-chart-line" style="font-size: 2rem; opacity: 0.7;"></i>
+                                <div style="margin-top: 5px;">Visitors</div>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-chart-area" style="font-size: 2rem; opacity: 0.7;"></i>
+                                <div style="margin-top: 5px;">Online</div>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-chart-line" style="font-size: 2rem; opacity: 0.7;"></i>
+                                <div style="margin-top: 5px;">Sales</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let departments = [
+            { Dname: "IT", Dcode: 58 },
+            { Dname: "Finance", Dcode: 158 },
+            { Dname: "HR", Dcode: 48 },
+            { Dname: "Marketing", Dcode: 44 },
+            { Dname: "CEO", Dcode: 2 }
+            ];
+
+
+        const nested_employees = [
+            [
+            {
+            employee_id: "EMP101",
+            name: "Rahul",
+            salary: 55000,
+            age: 27,
+            country: "India",
+            department: 58,
+            interests: [
+            { technology: ["javascript", "nodejs"] },
+            { sports: ["cricket"] },
+            { music: ["guitar"] },
+            { self_growth: ["productivity"] }
+            ],
+            junior_assigned: ["JEMP201", "JEMP202", "JEMP203"],
+            products_in_cart: [
+            { Pname: "Laptop", cost: 70000 },
+            { Pname: "Keyboard", cost: 2500 },
+            { Pname: "Headphones", cost: 4500 }
+            ]
+        },
+        {
+            employee_id: "EMP102",
+            name: "Aman",
+            salary: 48000,
+            age: 25,
+            country: "India",
+            department: 158,
+            interests: [
+            { business: ["marketing"] },
+            { fitness: ["gym"] },
+            { technology: ["react"] },
+            { travel: ["mountains"] }
+            ],
+            junior_assigned: ["JEMP204", "JEMP205"],
+            products_in_cart: [
+            { Pname: "Phone", cost: 35000 },
+            { Pname: "Shoes", cost: 5000 },
+            { Pname: "Backpack", cost: 2000 }
+            ]
+        },
+        {
+            employee_id: "EMP103",
+            name: "Mohit",
+            salary: 62000,
+            age: 30,
+            country: "Canada",
+            department: 2,
+            interests: [
+            { technology: ["python", "django"] },
+            { gaming: ["fps"] },
+            { reading: ["fiction"] },
+            { finance: ["investing"] }
+            ],
+            junior_assigned: ["JEMP206"],
+            products_in_cart: [
+            { Pname: "Monitor", cost: 18000 },
+            { Pname: "Mouse", cost: 2500 },
+            { Pname: "SSD", cost: 7000 }
+            ]
+        }
+        ],
+        [
+        {
+            employee_id: "EMP104",
+            name: "Neha",
+            salary: 58000,
+            age: 28,
+            country: "India",
+            department: 48,
+            interests: [
+            { leadership: ["team_management"] },
+            { cooking: ["baking"] },
+            { technology: ["ui_design"] },
+            { self_growth: ["public_speaking"] }
+            ],
+            junior_assigned: ["JEMP207", "JEMP208"],
+            products_in_cart: [
+            { Pname: "iPad", cost: 55000 },
+            { Pname: "Stylus", cost: 9000 },
+            { Pname: "Bag", cost: 2500 }
+            ]
+        },
+        {
+            employee_id: "EMP105",
+            name: "Riya",
+            salary: 52000,
+            age: 26,
+            country: "Australia",
+            department: 44,
+            interests: [
+            { photography: ["nature"] },
+            { technology: ["figma"] },
+            { fashion: ["design"] },
+            { travel: ["beaches"] }
+            ],
+            junior_assigned: ["JEMP209", "JEMP210"],
+            products_in_cart: [
+            { Pname: "Camera", cost: 85000 },
+            { Pname: "Tripod", cost: 4000 },
+            { Pname: "Memory Card", cost: 2500 }
+            ]
+        },
+        {
+            employee_id: "EMP106",
+            name: "Pooja",
+            salary: 47000,
+            age: 24,
+            country: "India",
+            department: 158,
+            interests: [
+            { art: ["painting"] },
+            { technology: ["css", "html"] },
+            { music: ["singing"] },
+            { business: ["sales"] }
+            ],
+            junior_assigned: ["JEMP211"],
+            products_in_cart: [
+            { Pname: "Tablet", cost: 30000 },
+            { Pname: "Earbuds", cost: 3500 },
+            { Pname: "Notebook", cost: 500 }
+            ]
+        }
+        ],
+        [
+        {
+            employee_id: "EMP107",
+            name: "Karan",
+            salary: 68000,
+            age: 31,
+            country: "Germany",
+            department: 2,
+            interests: [
+            { technology: ["aws", "docker"] },
+            { finance: ["stocks"] },
+            { leadership: ["mentoring"] },
+            { fitness: ["cycling"] }
+            ],
+            junior_assigned: ["JEMP212", "JEMP213"],
+            products_in_cart: [
+            { Pname: "MacBook", cost: 145000 },
+            { Pname: "Magic Mouse", cost: 7000 },
+            { Pname: "USB Hub", cost: 2500 }
+            ]
+        },
+        {
+            employee_id: "EMP108",
+            name: "Ajay",
+            salary: 51000,
+            age: 29,
+            country: "India",
+            department: 58,
+            interests: [
+            { sports: ["football"] },
+            { technology: ["mongodb"] },
+            { reading: ["history"] },
+            { movies: ["action"] }
+            ],
+            junior_assigned: ["JEMP214", "JEMP215"],
+            products_in_cart: [
+            { Pname: "Smart Watch", cost: 15000 },
+            { Pname: "Shoes", cost: 4500 },
+            { Pname: "Jacket", cost: 3500 }
+            ]
+        },
+        {
+            employee_id: "EMP109",
+            name: "Pulkit",
+            salary: 75000,
+            age: 25,
+            country: "India",
+            department: 58,
+            interests: [
+            { technology: ["mern", "nodejs", "react"] },
+            { self_growth: ["motivational", "books"] },
+            { music: ["instruments"] },
+            { travel: ["road_trips"] }
+            ],
+            junior_assigned: ["JEMP216", "JEMP217", "JEMP219"],
+            products_in_cart: [
+            { Pname: "Gaming Laptop", cost: 95000 },
+            { Pname: "Mechanical Keyboard", cost: 6500 },
+            { Pname: "Monitor", cost: 22000 }
+            ]
+        }
+        ]
+    ];
+
+    let junior_employees = [
+            {
+                employee_id:"JEMP201",
+                name:"rahul",
+                salary:1800,
+                age:21,
+                country:"india",
+                department:158,
+                interests:[{vlogs:["travel_vlogs"]},{learning:["science"]}],
+                products_in_cart:[{Pname:"Bag",cost:900}]
+            },
+            {
+                employee_id:"JEMP202",
+                name:"neha",
+                salary:2000,
+                age:22,
+                country:"india",
+                department:158,
+                interests:[{food:["food"]},{creativity:["art"]}],
+                products_in_cart:[{Pname:"Shoes",cost:1500}]
+            },
+            {
+                employee_id:"JEMP203",
+                name:"aman",
+                salary:2200,
+                age:24,
+                country:"india",
+                department:58,
+                interests:[{coding:["coding"]},{technology:["technology"]}],
+                products_in_cart:[{Pname:"Keyboard",cost:1200}]
+            },
+            {
+                employee_id:"JEMP204",
+                name:"riya",
+                salary:1700,
+                age:20,
+                country:"india",
+                department:48,
+                interests:[{gaming:["online_gaming"]}],
+                products_in_cart:[{Pname:"Football",cost:900}]
+            },
+            {
+                employee_id:"JEMP205",
+                name:"vivek",
+                salary:2100,
+                age:23,
+                country:"india",
+                department:48,
+                interests:[{sports:["sports"]}],
+                products_in_cart:[{Pname:"Shoes",cost:1800}]
+            },
+            {
+                employee_id:"JEMP206",
+                name:"karan",
+                salary:2300,
+                age:24,
+                country:"russia",
+                department:158,
+                interests:[{vehicles:["bike"]}],
+                products_in_cart:[{Pname:"Helmet",cost:1200}]
+            },
+            {
+                employee_id:"JEMP207",
+                name:"simran",
+                salary:2500,
+                age:22,
+                country:"japan",
+                department:48,
+                interests:[{history:["history"]}],
+                products_in_cart:[{Pname:"Books",cost:700}]
+            },
+            {
+                employee_id:"JEMP208",
+                name:"mohit",
+                salary:2400,
+                age:23,
+                country:"india",
+                department:48,
+                interests:[{learning:["science"]}],
+                products_in_cart:[{Pname:"Notebook",cost:150}]
+            },
+            {
+                employee_id:"JEMP209",
+                name:"anjali",
+                salary:2600,
+                age:22,
+                country:"india",
+                department:48,
+                interests:[{self_growth:["motivational"]}],
+                products_in_cart:[{Pname:"Watch",cost:2000}]
+            },
+            {
+                employee_id:"JEMP210",
+                name:"rohit",
+                salary:2800,
+                age:25,
+                country:"india",
+                department:58,
+                interests:[{coding:["coding"]}],
+                products_in_cart:[{Pname:"Mouse",cost:800}]
+            },
+            {
+                employee_id:"JEMP211",
+                name:"deep",
+                salary:1800,
+                age:21,
+                country:"india",
+                department:48,
+                interests:[{gaming:["gaming"]}],
+                products_in_cart:[{Pname:"Headphones",cost:1800}]
+            },
+            {
+                employee_id:"JEMP212",
+                name:"priya",
+                salary:1900,
+                age:21,
+                country:"india",
+                department:48,
+                interests:[{anime:["anime"]}],
+                products_in_cart:[{Pname:"Books",cost:500}]
+            },
+            {
+                employee_id:"JEMP213",
+                name:"harsh",
+                salary:2000,
+                age:23,
+                country:"india",
+                department:44,
+                interests:[{business:["marketing"]}],
+                products_in_cart:[{Pname:"Notebook",cost:200}]
+            },
+            {
+                employee_id:"JEMP214",
+                name:"isha",
+                salary:1700,
+                age:20,
+                country:"uganda",
+                department:158,
+                interests:[{fun:["cartoons"]}],
+                products_in_cart:[{Pname:"Chocolate",cost:100}]
+            },
+            {
+                employee_id:"JEMP215",
+                name:"nikhil",
+                salary:2100,
+                age:24,
+                country:"brazil",
+                department:58,
+                interests:[{dance:["dance"]}],
+                products_in_cart:[{Pname:"Shoes",cost:1700}]
+            },
+            {
+                employee_id:"JEMP216",
+                name:"megha",
+                salary:2200,
+                age:23,
+                country:"brazil",
+                department:58,
+                interests:[{food:["food"]}],
+                products_in_cart:[{Pname:"Dress",cost:1800}]
+            },
+            {
+                employee_id:"JEMP217",
+                name:"abhishek",
+                salary:3000,
+                age:26,
+                country:"jamaica",
+                department:2,
+                interests:[{leadership:["leadership"]}],
+                products_in_cart:[{Pname:"Laptop Bag",cost:2000}]
+            },
+            {
+                employee_id:"JEMP218",
+                name:"kiran",
+                salary:3200,
+                age:27,
+                country:"jamaica",
+                department:2,
+                interests:[{business:["business"]}],
+                products_in_cart:[{Pname:"Phone",cost:25000}]
+            },
+            {
+                employee_id:"JEMP219",
+                name:"sonia",
+                salary:3100,
+                age:25,
+                country:"jamaica",
+                department:2,
+                interests:[{technology:["technology"]}],
+                products_in_cart:[{Pname:"Watch",cost:3000}]
+            }
+            ];
+    </script>
+</body>
+</html>
