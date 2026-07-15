@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphism Pop-It</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            /* Cinematic dark background lighting */
+            background: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 70%);
+            color: white;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .instructions {
+            opacity: 0.7;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        /* Glassmorphism Container */
+        .pop-it-board {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+
+        .bubble {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            /* 3D unpopped effect */
+            box-shadow: 
+                inset -4px -4px 8px rgba(0,0,0,0.25), 
+                inset 4px 4px 8px rgba(255,255,255,0.4), 
+                0 6px 12px rgba(0,0,0,0.4);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* The Popped State */
+        .bubble.popped {
+            /* Invert the shadow to look pressed in */
+            box-shadow: 
+                inset 4px 4px 8px rgba(0,0,0,0.4), 
+                inset -4px -4px 8px rgba(255,255,255,0.1), 
+                0 1px 2px rgba(0,0,0,0.1);
+            transform: translateY(4px) scale(0.92);
+            filter: brightness(0.85);
+        }
+
+        /* Rainbow rows inspired by the reference image */
+        .row-0 { background-color: #960000; } /* Red */
+        .row-1 { background-color: #f97316; } /* Orange */
+        .row-2 { background-color: #facc15; } /* Yellow */
+        .row-3 { background-color: #22c55e; } /* Green */
+        .row-4 { background-color: #06b6d4; } /* Cyan */
+        .row-5 { background-color: #8b5cf6; } /* Purple */
+
+    </style>
+</head>
+<body>
+
+    <div class="instructions">Click bubbles or press any key to pop</div>
+
+    <div class="pop-it-board" id="board">
+        <!-- Bubbles will be injected here by JS -->
+    </div>
+
+    <script>
+        const board = document.getElementById('board');
+        const rows = 6;
+        const cols = 6;
+        
+        // 1. Generate the grid
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                const bubble = document.createElement('div');
+                bubble.className = `bubble row-${r}`; // Assign color based on row
+                
+                // Add click listener to pop/unpop manually
+                bubble.addEventListener('click', () => {
+                    bubble.classList.toggle('popped');
+                });
+                
+                board.appendChild(bubble);
+            }
+        }
+
+        const allBubbles = document.querySelectorAll('.bubble');
+
+        // 2. Listen for keyboard presses
+        document.addEventListener('keydown', (event) => {
+            if (event.repeat) return; // Prevent spamming by holding a key
+
+            // Find all bubbles that aren't popped yet
+            const unpopped = Array.from(allBubbles).filter(b => !b.classList.contains('popped'));
+
+            if (unpopped.length > 0) {
+                // Pick a random unpopped bubble and pop it
+                const randomBubble = unpopped[Math.floor(Math.random() * unpopped.length)];
+                randomBubble.classList.add('popped');
+            } else {
+                // If everything is popped, a keypress resets the board
+                allBubbles.forEach(b => b.classList.remove('popped'));
+            }
+        });
+    </script>
+
+</body>
+</html>

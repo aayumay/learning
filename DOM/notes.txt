@@ -1,0 +1,15 @@
+eventlistener
+postfix, prefix
+inrement and decrement
+math.random + math.floor + math.ceil + math.round
+conditional rendering
+
+dragable true
+
+//small project
+counter app
+requiremnets...
+Increase btn
+decrease btn
+reset number 
+non neg. number

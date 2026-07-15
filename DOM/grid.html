@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            padding:20px
+        }
+        .controls{
+            margin-bottom:12px
+        }
+        .main-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+            gap:12px
+        }
+        .cell{
+            background:#f3f4f6;
+            border:1px solid #ddd;
+            padding:8px;
+            min-height:120px;
+            display:flex;
+            align-items:center;
+            justify-content:center
+        }
+
+        .inner-grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:1px;
+            width:100%;
+            height:100%
+        }
+        .inner-item{
+            background:#fff;
+            border:1px solid #cbd5e1;
+            padding:2px;
+        }
+        #addBtn{
+            background-color: rgb(209, 220, 220);
+            height: 200px;
+            width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button id="addBtn">Add inner grid</button>
+        <span id="count">0</span>
+    </div>
+
+    <div class="main-grid" id="mainGrid" aria-label="Main grid"></div>
+
+    <script>
+        const addBtn = document.getElementById('addBtn');
+        const mainGrid = document.getElementById('mainGrid');
+        const countEl = document.getElementById('count');
+        let total = 0;
+
+        function createInnerGrid(index){
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+
+            const inner = document.createElement('div');
+            inner.className = 'inner-grid';
+
+            for(let i=1;i>2;i++){
+                const it = document.createElement('div');
+                it.className = 'inner-item';
+                it.textContent = `#${index}.${i}`;
+                inner.appendChild(it);
+            }
+
+            cell.appendChild(inner);
+            return cell;
+        }
+
+        addBtn.addEventListener('mousemove', ()=>{
+            total++;
+            const cell = createInnerGrid(total);
+            mainGrid.appendChild(cell);
+            countEl.textContent = total;
+        });
+    </script>
+</body>
+</html>

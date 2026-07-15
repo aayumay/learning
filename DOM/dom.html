@@ -4,14 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #mydiv{
+            height:100px;
+            width: 100px;
+            border: 1px solid black;
+
+        }
+        .class1{
+            background-color: red;
+            color: aliceblue;
+        }
+        .class2{
+            background-color: aquamarine;
+        }
+        .class3{
+            background-color: beige;
+        }
+        .class4{
+            background-color: blueviolet;
+        }
+        .class5{
+            background-color: aqua;
+        }
+        
+    </style>
 </head>
 <body>
     <h1 id="heading">Welcome to DOM</h1>
+    
+    <div id="mydiv"><span id="count">0</span></div>
+    
+    
+    <button id="add">+</button>
+    <button id="subtract">-</button>
+    <button id="multiply">*</button>
+    <button id="divide">/</button>
+
     <script>
         let h1 = document.getElementById('heading');
-        h1.innerText = "Aayush";
+        h1.innerText = "5 plus 10";
 
         console.dir(h1);
+
+        // // press --> hold --> release --- click
+        // let div = document.querySelector("#mydiv")
+        // let mybtn = document.querySelector("#btn")
+
+        // mybtn.addEventListener('click', function(){
+        //     div.classList.add("class1")   
+
+        // })
+
+        // increase & decrease the count of number inside a box as per click on the increase and decrease
+        let mydiv=document.querySelector("#mydiv")
+        let countOne = 0;
+        let countTwo = 0;
+
+        const btnOne = document.querySelector('#add');
+        const btnTwo = document.querySelector('#subtract');
+        const btnThree = document.querySelector('#multiply');
+        const btnFour = document.querySelector('#divide');
+
+        let a=5;
+        let b=10;
+           btnOne.addEventListener("click", () => {
+            // div.classList.add("class1");
+            count.innerText = a + b;
+            count++
+            });
+
+            btnTwo.addEventListener("click", () => {
+            count.innerText = a - b;
+            });
+
+            btnThree.addEventListener("click", () => {
+            count.innerText = a * b;
+            });
+
+            btnFour.addEventListener("click", () => {
+            count.innerText = a / b;
+            });
+
+        
+
+        
     </script>
 </body>
 </html>
